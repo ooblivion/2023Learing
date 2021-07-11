@@ -56,6 +56,7 @@ public class PageParam {
                 }
             }else{
             	try{
+					f.setAccessible(true);
 					Object o = f.get(this);
 					map.put(f.getName(),o);
 				}  catch (IllegalAccessException e) {

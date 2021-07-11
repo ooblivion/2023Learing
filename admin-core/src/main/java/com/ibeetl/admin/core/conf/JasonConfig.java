@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,8 +53,8 @@ public class JasonConfig {
 			}
 			gen.writeStringField("msg", value.getMsg());
 			Object data = value.getData();
-			if(data instanceof PageQuery ) {
-				PageQuery query = (PageQuery)(data);
+			if(data instanceof PageResult) {
+				PageResult query = (PageResult)(data);
 				gen.writeObjectField("count", query.getTotalRow());
 				gen.writeObjectField("data", query.getList());
 			}else {

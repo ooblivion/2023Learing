@@ -49,7 +49,7 @@ public class FunctionConsoleService  extends CoreBaseService<CoreFunction> {
 	public PageResult<CoreFunction> queryByCondtion(FunctionQuery query) {
 		PageRequest pageRequest = query.getPageRequest();
 		Map params = query.getPageParam();
-		PageResult<CoreFunction> pageResult = functionDao.queryByCondtion(pageRequest,params);
+		PageResult<CoreFunction> pageResult = functionDao.queryByCondition(pageRequest,params);
 		List<CoreFunction> list = pageResult.getList();
 		this.queryListAfter(list);
 		//处理父功能名称显示

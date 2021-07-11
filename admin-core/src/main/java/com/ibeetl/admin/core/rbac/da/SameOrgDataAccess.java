@@ -35,7 +35,7 @@ public class SameOrgDataAccess implements DataAccess {
 
 	@Override
 	public String getName() {
-		return "同结构";
+		return "同机构";
 	}
 
 	@Override
