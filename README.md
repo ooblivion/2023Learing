@@ -1,10 +1,4 @@
 
-#  集成驰骋工作流引擎表单引擎jflow - 预告
-1. springboot-plus 将于jflow合作，把开源的驰骋工作流引擎集成到框架里面去.
-2. 驰骋BPM官方网站 http://ccflow.org
-3. JFlow下载地址. https://gitee.com/opencc/JFlow
-4. JFlow 的在线文档 http://doc.ccbpm.cn ，视频教程: http://ccflow.org/ke.htm
-
 # springboot-plus
 
 一个基于SpringBoot 2 的管理后台系统,有数十个基于此的商业应用，包含了用户管理，组织机构管理，角色管理，功能点管理，菜单管理，权限分配，数据权限分配，代码生成等功能
