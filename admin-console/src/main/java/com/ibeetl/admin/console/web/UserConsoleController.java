@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageResult;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,11 +173,9 @@ public class UserConsoleController {
 	@PostMapping(MODEL + "/list.json")
 	@Function("user.query")
 	@ResponseBody
-	public JsonResult<PageQuery<CoreUser>> index(UserQuery condtion) {
-
-		PageQuery<CoreUser> page = condtion.getPageQuery();
-		userConsoleService.queryByCondtion(page);
-		return JsonResult.success(page);
+	public JsonResult<PageResult<CoreUser>> index(UserQuery condition) {
+		PageResult<CoreUser> pageResult =  userConsoleService.queryByCondition(condition);
+		return JsonResult.success(pageResult);
 	}
 
 	@PostMapping(MODEL + "/list/condition.json")
@@ -236,8 +235,8 @@ public class UserConsoleController {
 	/**
 	 * 用户所有授权角色列表
 	 * 
-	 * @param id
-	 *            用户id
+	 * @param roleQuery
+	 *
 	 * @return
 	 */
 	@PostMapping(MODEL + "/role/list.json")
@@ -284,14 +283,14 @@ public class UserConsoleController {
 	@PostMapping(MODEL + "/excel/export.json")
 	@Function("user.export")
 	@ResponseBody
-	public JsonResult<String> export(HttpServletResponse response,UserQuery condtion) {
+	public JsonResult<String> export(HttpServletResponse response,UserQuery condition) {
 		String excelTemplate ="excelTemplates/admin/user/user_collection_template.xls";
-		PageQuery<CoreUser> page = condtion.getPageQuery();
+
 		//取出全部符合条件的
-		page.setPageSize(Integer.MAX_VALUE);
-		page.setPageNumber(1);
-		page.setTotalRow(Integer.MAX_VALUE);
-		List<UserExcelExportData> users =userConsoleService.queryExcel(page);
+		condition.setPage(1);
+		condition.setLimit(Integer.MAX_VALUE);
+
+		List<UserExcelExportData> users =userConsoleService.queryExcel(condition);
 		try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelTemplate)) {
 	        if(is==null) {
 	        	throw new PlatformException("模板资源不存在："+excelTemplate);

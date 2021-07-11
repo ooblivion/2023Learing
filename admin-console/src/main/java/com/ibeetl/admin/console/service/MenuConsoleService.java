@@ -1,6 +1,7 @@
 package com.ibeetl.admin.console.service;
 
 import com.ibeetl.admin.console.dao.MenuConsoleDao;
+import com.ibeetl.admin.console.web.query.MenuQuery;
 import com.ibeetl.admin.core.dao.CoreRoleMenuDao;
 import com.ibeetl.admin.core.entity.CoreMenu;
 import com.ibeetl.admin.core.rbac.tree.MenuItem;
@@ -9,12 +10,15 @@ import com.ibeetl.admin.core.service.CorePlatformService;
 import com.ibeetl.admin.core.util.PlatformException;
 
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -28,9 +32,12 @@ public class MenuConsoleService extends CoreBaseService<CoreMenu> {
     @Autowired
     CorePlatformService platformService;
 
-    public void queryByCondtion(PageQuery<CoreMenu> query) {
-        menuDao.queryByCondtion(query);
-        queryListAfter(query.getList());
+    public PageResult<CoreMenu> queryByCondition(MenuQuery condition) {
+		PageRequest pageRequest = condition.getPageRequest();
+		Map params = condition.getPageParam();
+        PageResult<CoreMenu> pageResult = menuDao.queryByCondition(pageRequest,params);
+        queryListAfter(pageResult.getList());
+        return  pageResult;
     }
 
     public Long saveMenu(CoreMenu menu) {
@@ -40,7 +47,7 @@ public class MenuConsoleService extends CoreBaseService<CoreMenu> {
         if (queryCount > 0) {
             throw new PlatformException("菜单编码已存在");
         }
-        menuDao.insert(menu, true);
+        menuDao.insert(menu);
         platformService.clearMenuCache();
         return menu.getId();
     }

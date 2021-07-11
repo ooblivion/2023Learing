@@ -6,8 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.SeqID;
+import org.beetl.sql.annotation.entity.AutoID;
+import org.beetl.sql.annotation.entity.SeqID;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ibeetl.admin.core.annotation.Dict;

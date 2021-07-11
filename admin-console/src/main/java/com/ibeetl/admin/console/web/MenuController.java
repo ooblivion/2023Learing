@@ -7,6 +7,8 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -74,7 +76,6 @@ public class MenuController {
     
     /**
      * 查询
-     * @param menu
      * @return
      */
     @PostMapping(MODEL + "/list/condition.json")
@@ -89,10 +90,9 @@ public class MenuController {
     @PostMapping(MODEL + "/list.json")
     @Function("menu.query")
     @ResponseBody
-    public JsonResult<PageQuery> list(MenuQuery condtion) {
-        PageQuery page = condtion.getPageQuery();
-        menuService.queryByCondtion(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreMenu>> list(MenuQuery condition) {
+		PageResult<CoreMenu> pageResult = menuService.queryByCondition(condition);
+        return JsonResult.success(pageResult);
     }
     
 

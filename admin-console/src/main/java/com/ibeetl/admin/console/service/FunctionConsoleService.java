@@ -3,8 +3,12 @@ package com.ibeetl.admin.console.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.ibeetl.admin.console.web.query.FunctionQuery;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,9 +46,11 @@ public class FunctionConsoleService  extends CoreBaseService<CoreFunction> {
 	CorePlatformService platformService;
 	
 	
-	public void queryByCondtion(PageQuery<CoreFunction> query) {
-		functionDao.queryByCondtion(query);
-		List<CoreFunction> list = query.getList();
+	public PageResult<CoreFunction> queryByCondtion(FunctionQuery query) {
+		PageRequest pageRequest = query.getPageRequest();
+		Map params = query.getPageParam();
+		PageResult<CoreFunction> pageResult = functionDao.queryByCondtion(pageRequest,params);
+		List<CoreFunction> list = pageResult.getList();
 		this.queryListAfter(list);
 		//处理父功能名称显示
 		FunctionItem root = platformService.buildFunction();
@@ -57,13 +63,13 @@ public class FunctionConsoleService  extends CoreBaseService<CoreFunction> {
         	}
         	function.set("parentFunctionText", name);
         }
+        return pageResult;
 		
 	}
 	
 	
 	public Long saveFunction(CoreFunction function){
-		
-		functionDao.insert(function,true);
+		functionDao.insert(function);
 		platformService.clearFunctionCache();
 		return  function.getId();
 	}
@@ -125,7 +131,6 @@ public class FunctionConsoleService  extends CoreBaseService<CoreFunction> {
 	}
 	/**
 	 * 更新角色对应的功能点所有,
-	 * @param roleId
 	 * @param data，必须包含id,和 dataAcerssType，采用模板更新
 	 */
 	public void updateFunctionAccessByRole(List<RoleDataAccessFunction> data ){
@@ -153,7 +158,6 @@ public class FunctionConsoleService  extends CoreBaseService<CoreFunction> {
 	
 	/** 给角色赋予功能同时，根据赋予的功能权限，更新能访问的菜单
 	 * @param adds
-	 * @param updates
 	 * @param dels
 	 * @return  返回增加的项的id，用于前端
 	 */

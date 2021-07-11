@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -92,16 +94,16 @@ public class OrgConsoleController {
     
     /**
      * 组织机构列表  分页
-     * @param condtion 查询条件
+     * @param condition 查询条件
      * @return
      */
     @PostMapping(MODEL + "/list.json")
     @Function("org.query")
     @ResponseBody
-    public JsonResult<PageQuery<CoreOrg>> list(OrgQuery condtion) {
-        PageQuery page = condtion.getPageQuery();
-        orgConsoleService.queryByCondtion(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreOrg>> list(OrgQuery condition) {
+
+		PageResult<CoreOrg> pageResult =  orgConsoleService.queryByCondition(condition);
+        return JsonResult.success(pageResult);
     }
 
     /**
@@ -111,7 +113,7 @@ public class OrgConsoleController {
     @PostMapping(MODEL + "/list/condition.json")
     @Function("org.query")
     @ResponseBody
-    public JsonResult<List<Map<String, Object>>> listCondtion() {
+    public JsonResult<List<Map<String, Object>>> listCondition() {
         List<Map<String, Object>> list = AnnotationUtil.getInstance().getAnnotations(Query.class, OrgQuery.class);
         return JsonResult.success(list);
     }
@@ -181,10 +183,9 @@ public class OrgConsoleController {
     @PostMapping(MODEL + "/user/list.json")
     @Function("org.query")
     @ResponseBody
-    public JsonResult<PageQuery<CoreUser>> getUsers(OrgUserQuery userQuery) {
-    	 PageQuery<CoreUser> page = userQuery.getPageQuery();
-         orgConsoleService.queryUserByCondition(page);
-         return JsonResult.success(page);
+    public JsonResult<PageResult<CoreUser>> getUsers(OrgUserQuery userQuery) {
+		PageResult<CoreUser>  pageResult = orgConsoleService.queryUserByCondition(userQuery);
+         return JsonResult.success(pageResult);
     }
    
 }

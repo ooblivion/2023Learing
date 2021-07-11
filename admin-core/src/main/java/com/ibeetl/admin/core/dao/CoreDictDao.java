@@ -3,9 +3,8 @@ package com.ibeetl.admin.core.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.annotatoin.SqlStatement;
-import org.beetl.sql.core.mapper.BaseMapper;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.SqlResource;
 
 import com.ibeetl.admin.core.entity.CoreDict;
 
@@ -27,7 +26,6 @@ public interface CoreDictDao extends BaseMapper<CoreDict> {
      * @param delFlag 删除标记
      * @return
      */
-    @SqlStatement(returnType = Map.class)
     List<Map<String, String>> findTypeList(int delFlag);
 
   

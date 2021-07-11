@@ -8,13 +8,16 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.beetl.sql.core.JavaType;
-import org.beetl.sql.core.NameConversion;
+
+import org.beetl.sql.clazz.ClassDesc;
+import org.beetl.sql.clazz.ColDesc;
+import org.beetl.sql.clazz.NameConversion;
+import org.beetl.sql.clazz.TableDesc;
+import org.beetl.sql.clazz.kit.JavaType;
 import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.db.ClassDesc;
-import org.beetl.sql.core.db.ColDesc;
-import org.beetl.sql.core.db.MetadataManager;
-import org.beetl.sql.core.db.TableDesc;
+
+import org.beetl.sql.core.meta.MetadataManager;
+import org.beetl.sql.core.meta.SchemaMetadataManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +41,8 @@ public class CoreCodeGenService {
 	Log log = LogFactory.getLog(CoreCodeGenService.class);
 	
 	public void refresh() {
-		sqlManager.refresh();
+		SchemaMetadataManager dataManager = (SchemaMetadataManager)sqlManager.getMetaDataManager();
+		dataManager.refresh();
 	}
 	
 	public List<Entity> getAllEntityInfo(){
@@ -58,7 +62,7 @@ public class CoreCodeGenService {
 		if(tableDesc==null) {
 			return null;
 		}
-		ClassDesc classDesc = tableDesc .getClassDesc(nc);
+
 		Entity e = new Entity();
 		e.setName(nc.getClassName(table));
 		e.setComment(tableDesc.getRemark());
@@ -73,7 +77,7 @@ public class CoreCodeGenService {
 		if(tableDesc==null) {
 			return null;
 		}
-		ClassDesc classDesc = tableDesc .getClassDesc(nc);
+
 		Entity e = new Entity();
 		e.setName(nc.getClassName(table));
 		e.setComment(tableDesc.getRemark());
@@ -93,8 +97,8 @@ public class CoreCodeGenService {
 				attr.setId(true);
 				e.setIdAttribute(attr);
 			}
-			attr.setComment(desc.remark);
-			String type = JavaType.getType(desc.sqlType, desc.size, desc.digit);
+			attr.setComment(desc.getRemark());
+			String type = JavaType.getType(desc.getSqlType(), desc.getSize(), desc.getDigit());
 			if(type.equals("Double")){
 				type = "BigDecimal";
 			}		
@@ -136,7 +140,7 @@ public class CoreCodeGenService {
 		rootFunction.setCreateTime(new Date());
 		rootFunction.setParentId(0L);
 		rootFunction.setType("FN0");
-		sqlManager.insert(rootFunction,true);
+		sqlManager.insert(rootFunction);
 		Long parentId =rootFunction.getId();
 		
 		//设置曾删改查功能点
@@ -148,7 +152,7 @@ public class CoreCodeGenService {
 		indexFunction.setAccessUrl("/"+urlBase+"/"+data.getCode()+"/index.do");
 		//设置为查询功能
 		indexFunction.setType("FN1");
-		sqlManager.insert(indexFunction,true);
+		sqlManager.insert(indexFunction);
 		
 		
 		CoreFunction  upateFunction = new CoreFunction();
@@ -158,7 +162,7 @@ public class CoreCodeGenService {
 		upateFunction.setCreateTime(new Date());
 		upateFunction.setParentId(parentId);
 		upateFunction.setType("FN0");
-		sqlManager.insert(upateFunction,true);
+		sqlManager.insert(upateFunction);
 		
 		CoreFunction  addFunction = new CoreFunction();
 		String addFunctionCode = functionCode+".add";
@@ -167,7 +171,7 @@ public class CoreCodeGenService {
 		addFunction.setCreateTime(new Date());
 		addFunction.setParentId(parentId);
 		addFunction.setType("FN0");
-		sqlManager.insert(addFunction,true);
+		sqlManager.insert(addFunction);
 		
 		
 		CoreFunction  delFunction = new CoreFunction();
@@ -177,7 +181,7 @@ public class CoreCodeGenService {
 		delFunction.setCreateTime(new Date());
 		delFunction.setParentId(parentId);
 		delFunction.setType("FN0");
-		sqlManager.insert(delFunction,true);
+		sqlManager.insert(delFunction);
 		
 		//刷新缓存
 		platformService.clearFunctionCache();

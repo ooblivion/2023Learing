@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ import com.ibeetl.admin.core.entity.CoreAudit;
 import com.ibeetl.admin.core.util.AnnotationUtil;
 import com.ibeetl.admin.core.web.JsonResult;
 /**
- * 用户管理接口
+ * 用户审计接口
  * @author xiandafu
  *
  */
@@ -38,7 +39,6 @@ public class AuditConsoleController {
     
   
    /*页面*/
-    
     @GetMapping(MODEL + "/index.do")
     @Function("trace")
     public ModelAndView index() {
@@ -49,7 +49,6 @@ public class AuditConsoleController {
     
     
     /*Json*/
-
     @PostMapping(MODEL + "/view.json")
     @ResponseBody
     @Function("trace")
@@ -63,11 +62,9 @@ public class AuditConsoleController {
     @RequestMapping(MODEL + "/list.json")
     @Function("trace")
     @ResponseBody
-    public JsonResult<PageQuery<CoreAudit>> list(AuditQuery condtion) {
-       
-        PageQuery<CoreAudit> page = condtion.getPageQuery();
-        auditConsoleService.queryByCondtion(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreAudit>> list(AuditQuery condition) {
+        PageResult<CoreAudit> pageResult = auditConsoleService.queryByCondtion(condition);
+        return JsonResult.success(pageResult);
     }
     
     

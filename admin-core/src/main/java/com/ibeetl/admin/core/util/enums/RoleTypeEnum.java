@@ -1,13 +1,12 @@
 package com.ibeetl.admin.core.util.enums;
 
-import org.beetl.sql.core.annotatoin.EnumMapping;
+import org.beetl.sql.annotation.entity.EnumValue;
 
 /**
  * 描述: 工作流角色
  *
  * @author : Administrator
  */
-@EnumMapping("value")
 public enum RoleTypeEnum {
 	
 	/**
@@ -19,7 +18,7 @@ public enum RoleTypeEnum {
 	 */
 	WORKFLOW("R1");
 	
-
+	@EnumValue
 	private String value;
 
 	RoleTypeEnum(String value) {

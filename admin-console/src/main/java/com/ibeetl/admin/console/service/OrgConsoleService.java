@@ -2,8 +2,13 @@ package com.ibeetl.admin.console.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.ibeetl.admin.console.web.query.OrgQuery;
+import com.ibeetl.admin.console.web.query.OrgUserQuery;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +39,11 @@ public class OrgConsoleService extends CoreBaseService<CoreOrg> {
      * 根据条件查询
      * @param query
      */
-    public void queryByCondtion(PageQuery<CoreOrg> query) {
-        orgDao.queryByCondtion(query);
-        List<CoreOrg> list = query.getList();
+    public PageResult<CoreOrg> queryByCondition(OrgQuery condition) {
+		PageRequest request = condition.getPageRequest();
+		Map params = condition.getPageParam();
+		PageResult<CoreOrg> pageResult =  orgDao.queryByCondition(request,params);
+        List<CoreOrg> list = pageResult.getList();
         queryListAfter(list);
         OrgItem root = platformService.buildOrg();
         //处理父机构名称显示，没有用sql查询是考虑到跨数据库
@@ -46,11 +53,15 @@ public class OrgConsoleService extends CoreBaseService<CoreOrg> {
         	String name = item!=null?item.getName():"";
         	org.set("parentOrgText", name);
         }
+        return pageResult;
     }
     
-    public void queryUserByCondition(PageQuery<CoreUser> query) {
-    	orgDao.queryUserByCondtion(query);
-    	queryListAfter(query.getList());
+    public PageResult<CoreUser> queryUserByCondition(OrgUserQuery condition) {
+    	PageRequest pageRequest = condition.getPageRequest();
+    	Map param = condition.getPageParam();
+		PageResult<CoreUser> pageResult = orgDao.queryUserByCondition(pageRequest,param);
+    	queryListAfter(pageResult.getList());
+    	return pageResult;
     }
 
 

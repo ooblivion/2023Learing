@@ -1,10 +1,14 @@
 package com.ibeetl.admin.console.dao;
 
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.engine.PageQuery;
-import org.beetl.sql.core.mapper.BaseMapper;
 
 import com.ibeetl.admin.core.entity.CoreFunction;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.Root;
+import org.beetl.sql.mapper.annotation.SqlResource;
+
+import java.util.Map;
 
 @SqlResource("console.function")
 public interface FunctionConsoleDao extends BaseMapper<CoreFunction> {
@@ -14,5 +18,5 @@ public interface FunctionConsoleDao extends BaseMapper<CoreFunction> {
      *
      * @param query
      */
-    public void queryByCondtion(PageQuery query);
+    PageResult<CoreFunction> queryByCondtion(PageRequest query, @Root Map params);
 }

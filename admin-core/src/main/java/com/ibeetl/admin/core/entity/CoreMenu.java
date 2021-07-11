@@ -5,9 +5,10 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.SeqID;
-import org.beetl.sql.core.annotatoin.UpdateIgnore;
+import org.beetl.sql.annotation.entity.AutoID;
+import org.beetl.sql.annotation.entity.SeqID;
+import org.beetl.sql.annotation.entity.UpdateIgnore;
+
 
 import com.ibeetl.admin.core.annotation.Dict;
 import com.ibeetl.admin.core.util.ValidateConfig;

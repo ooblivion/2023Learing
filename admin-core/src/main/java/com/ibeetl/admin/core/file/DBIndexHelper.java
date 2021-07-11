@@ -37,7 +37,7 @@ public  class DBIndexHelper {
     
     
     public void createFileItem(CoreFile file,List<FileTag> tags) {
-         fileDao.insert(file,true);
+         fileDao.insert(file);
          if(tags==null||tags.isEmpty()) {
              return ;
          }

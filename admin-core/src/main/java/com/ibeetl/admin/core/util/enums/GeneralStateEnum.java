@@ -1,13 +1,13 @@
 package com.ibeetl.admin.core.util.enums;
 
-import org.beetl.sql.core.annotatoin.EnumMapping;
+import org.beetl.sql.annotation.entity.EnumValue;
 
 /**
  * 描述:数据是否有效
  *
  * @author : lijiazhi
  */
-@EnumMapping("value")
+
 public enum GeneralStateEnum {
 	/**
 	 * 启用
@@ -18,6 +18,7 @@ public enum GeneralStateEnum {
 	 */
 	DISABLE("S0");
 
+	@EnumValue
 	private String value;
 
 	GeneralStateEnum(String value) {

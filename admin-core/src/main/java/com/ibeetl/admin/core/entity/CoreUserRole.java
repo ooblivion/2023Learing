@@ -1,11 +1,13 @@
 package com.ibeetl.admin.core.entity;
 
+import org.beetl.sql.annotation.entity.AutoID;
+import org.beetl.sql.annotation.entity.SeqID;
+
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.SeqID;
+
 
 /*
 *  用户角色关系
@@ -13,7 +15,7 @@ import org.beetl.sql.core.annotatoin.SeqID;
 */
 public class CoreUserRole extends BaseEntity {
 
-    // 自增id
+
 	@SeqID(name = "ORACLE_CORE_SEQ_NAME")
 	@AutoID
     private Long id;

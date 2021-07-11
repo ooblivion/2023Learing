@@ -1,15 +1,19 @@
 package com.ibeetl.admin.console.dao;
 
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.engine.PageQuery;
-import org.beetl.sql.core.mapper.BaseMapper;
 
 import com.ibeetl.admin.core.entity.CoreAudit;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.Root;
+import org.beetl.sql.mapper.annotation.SqlResource;
+
+import java.util.Map;
 
 @SqlResource("console.audit")
 public interface AuditConsoleDao extends BaseMapper<CoreAudit> {
 
-    PageQuery<CoreAudit> queryByCondtion(PageQuery<CoreAudit> query);
+    PageResult<CoreAudit> queryByCondtion(PageRequest<CoreAudit> query, @Root Map paras);
 
 }
 

@@ -1,9 +1,14 @@
 package com.ibeetl.admin.console.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.ibeetl.admin.console.web.query.RoleQuery;
+import com.ibeetl.admin.console.web.query.RoleUserQuery;
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,17 +59,22 @@ public class RoleConsoleService extends CoreBaseService<CoreRole> {
 
     /**
      * 根据条件查询
-     * @param query
+     * @param condition
      */
-    public void queryByCondtion(PageQuery query) {
-        roleDao.queryByCondtion(query);
-        super.queryListAfter(query.getList());
+    public PageResult<CoreRole> queryByCondition(RoleQuery condition) {
+		PageRequest pageRequest = condition.getPageRequest();
+		Map params = condition.getPageParam();
+		PageResult<CoreRole> pageResult =  roleDao.queryByCondition(pageRequest,params);
+        super.queryListAfter(pageResult.getList());
+        return pageResult;
     }
 
     
-    public PageQuery<CoreUser> queryRoleUser(PageQuery query) {
+    public PageResult<CoreUser> queryRoleUser(RoleUserQuery condition) {
     	OrgItem root = platformService.buildOrg();
-    	PageQuery<CoreUser>  ret = roleDao.queryUser(query);
+    	PageRequest pageRequest = condition.getPageRequest();
+    	Map params = condition.getPageParam();
+		PageResult<CoreUser>  ret = roleDao.queryUser(pageRequest,params);
     	List<CoreUser> list = ret.getList();
     	//从缓存里取出组织机构名称
     	for(CoreUser user:list) {

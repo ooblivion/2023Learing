@@ -1,18 +1,21 @@
 package com.ibeetl.admin.console.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.engine.PageQuery;
-import org.beetl.sql.core.mapper.BaseMapper;
 
 import com.ibeetl.admin.core.entity.CoreDict;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.Root;
+import org.beetl.sql.mapper.annotation.SqlResource;
 
 /**
  * CoreDict Dao
  */
 @SqlResource("console.dict")
-public interface DictConsoleDao extends BaseMapper<CoreDict>{
-    public PageQuery<CoreDict> queryByCondition(PageQuery query);
-    public void batchDelCoreDictByIds( List<Long> ids);
+public interface DictConsoleDao extends BaseMapper<CoreDict> {
+     PageResult<CoreDict> queryByCondition(PageRequest query, @Root Map params);
+     void batchDelCoreDictByIds( List<Long> ids);
 }

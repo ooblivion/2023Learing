@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.DefaultPageRequest;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.jxls.common.Context;
 import org.jxls.reader.ReaderBuilder;
 import org.jxls.reader.ReaderConfig;
@@ -92,11 +95,10 @@ public class DictConsoleController{
     @PostMapping(MODEL + "/list.json")
     @Function("dict.query")
     @ResponseBody
-    public JsonResult<PageQuery> list(CoreDictQuery condtion)
+    public JsonResult<PageResult<CoreDict>> list(CoreDictQuery condition)
     {
-        PageQuery page = condtion.getPageQuery();
-        dictService.queryByCondition(page);
-        return JsonResult.success(page);
+        PageResult<CoreDict> pageResult = dictService.queryByCondition(condition);
+        return JsonResult.success(pageResult);
     }
 
     @PostMapping(MODEL + "/add.json")
@@ -147,13 +149,10 @@ public class DictConsoleController{
     @PostMapping(MODEL + "/excel/export.json")
     @Function("dict.export")
     @ResponseBody
-    public JsonResult<String> export(HttpServletResponse response,CoreDictQuery condtion) {
+    public JsonResult<String> export(HttpServletResponse response,CoreDictQuery condition) {
         String excelTemplate ="excelTemplates/admin/dict/dict_collection_template.xls";
-        PageQuery<CoreUser> page = condtion.getPageQuery();
-        //取出全部符合条件的
-        page.setPageSize(Integer.MAX_VALUE);
-        page.setPageNumber(1);
-        page.setTotalRow(Integer.MAX_VALUE);
+       	PageRequest page = DefaultPageRequest.of(1,Integer.MAX_VALUE);
+
         List<CoreDict> dicts =dictService.queryExcel(page);
         try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelTemplate)) {
             if(is==null) {

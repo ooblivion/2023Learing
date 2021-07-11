@@ -1,20 +1,23 @@
 package com.ibeetl.admin.console.dao;
 
-import org.beetl.sql.core.annotatoin.Param;
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.engine.PageQuery;
-import org.beetl.sql.core.mapper.BaseMapper;
+
 
 import com.ibeetl.admin.core.entity.CoreUser;
 import com.ibeetl.admin.core.entity.CoreUserRole;
 import com.ibeetl.admin.core.util.enums.GeneralStateEnum;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.Root;
+import org.beetl.sql.mapper.annotation.SqlResource;
 
 import java.util.List;
+import java.util.Map;
 
 @SqlResource("console.user")
 public interface UserConsoleDao extends BaseMapper<CoreUser> {
 
-    PageQuery<CoreUser> queryByCondtion(PageQuery<CoreUser> query);
+    PageResult<CoreUser> queryByCondition(PageRequest<CoreUser> query, @Root Map params);
 
     void batchDelUserByIds( List<Long> ids);
 

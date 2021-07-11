@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -153,11 +154,10 @@ public class FunctionController {
     @RequestMapping(MODEL + "/list.json")
     @Function("function.query")
     @ResponseBody
-    public JsonResult<PageQuery<CoreFunction>> list(FunctionQuery condtion) {
-     
-        PageQuery page = condtion.getPageQuery();
-        functionConsoleService.queryByCondtion(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreFunction>> list(FunctionQuery condtion) {
+
+		PageResult<CoreFunction>  pageResult = functionConsoleService.queryByCondtion(condtion);
+        return JsonResult.success(pageResult);
      
     }
     

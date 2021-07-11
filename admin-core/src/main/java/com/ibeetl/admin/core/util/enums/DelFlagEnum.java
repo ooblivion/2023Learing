@@ -1,15 +1,15 @@
 package com.ibeetl.admin.core.util.enums;
 
-import org.beetl.sql.core.annotatoin.EnumMapping;
+import org.beetl.sql.annotation.entity.EnumValue;
 
 /**
  * 描述:数据是否被逻辑删除
  * @author : xiandafu
  */
-@EnumMapping("value")
 public enum DelFlagEnum {
     NORMAL(0), DELETED(1);
 
+    @EnumValue
     private int value;
 
     DelFlagEnum(int value) {

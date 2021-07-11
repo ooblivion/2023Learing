@@ -1,11 +1,9 @@
 package com.ibeetl.admin.core.dao;
 
-import org.beetl.sql.core.annotatoin.Param;
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.annotatoin.SqlStatement;
-import org.beetl.sql.core.mapper.BaseMapper;
 
 import com.ibeetl.admin.core.entity.CoreRoleFunction;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.SqlResource;
 
 import java.util.List;
 

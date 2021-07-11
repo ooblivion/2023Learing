@@ -3,10 +3,14 @@ package com.ibeetl.admin.console.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.ibeetl.admin.console.web.query.UserQuery;
 import org.apache.catalina.User;
 import org.apache.commons.lang3.StringUtils;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,11 +56,14 @@ public class UserConsoleService extends CoreBaseService<CoreUser> {
 	/**
 	 * 根据条件查询
 	 *
-	 * @param query
+	 * @param condition
 	 */
-	public void queryByCondtion(PageQuery<CoreUser> query) {
-		PageQuery<CoreUser> ret = userDao.queryByCondtion(query);
+	public PageResult<CoreUser> queryByCondition(UserQuery condition) {
+		PageRequest pageRequest = condition.getPageRequest();
+		Map params = condition.getPageParam();
+		PageResult<CoreUser> ret = userDao.queryByCondition(pageRequest,params);
 		queryListAfter(ret.getList());
+		return ret;
 	}
 
 	/**
@@ -75,7 +82,7 @@ public class UserConsoleService extends CoreBaseService<CoreUser> {
 		user.setState(GeneralStateEnum.ENABLE.getValue());
 		user.setPassword(passwordEncryptService.password(user.getPassword()));
 		user.setDelFlag(DelFlagEnum.NORMAL.getValue());
-		userDao.insert(user, true);
+		userDao.insert(user);
 		if(StringUtils.isNotEmpty(user.getAttachmentId())){
 		    //更新附件详细信息,关联到这个用户
 		    fileService.updateFile(user.getAttachmentId(), User.class.getSimpleName(), String.valueOf(user.getId()));
@@ -152,7 +159,7 @@ public class UserConsoleService extends CoreBaseService<CoreUser> {
 	/**
 	 * 重置用户密码
 	 *
-	 * @param uId
+	 * @param id
 	 * @param password
 	 */
 	public int resetPassword(Long id, String password) {
@@ -185,8 +192,10 @@ public class UserConsoleService extends CoreBaseService<CoreUser> {
 		sqlManager.insert(userRole);
 	}
 	
-	public List<UserExcelExportData> queryExcel(PageQuery<CoreUser> query) {
-		PageQuery<CoreUser> ret = userDao.queryByCondtion(query);
+	public List<UserExcelExportData> queryExcel(UserQuery condition) {
+		PageRequest pageRequest = condition.getPageRequest();
+		Map params = condition.getPageParam();
+		PageResult<CoreUser> ret = userDao.queryByCondition(pageRequest,params);
 		List<CoreUser> list = ret.getList();
 		OrgItem orgRoot = platformService.buildOrg();
 		List<UserExcelExportData> items = new ArrayList<>();

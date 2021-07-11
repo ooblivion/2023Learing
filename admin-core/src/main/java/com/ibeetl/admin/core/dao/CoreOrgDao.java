@@ -2,9 +2,11 @@ package com.ibeetl.admin.core.dao;
 
 import java.util.List;
 
-import org.beetl.sql.core.annotatoin.Sql;
-import org.beetl.sql.core.annotatoin.SqlResource;
-import org.beetl.sql.core.mapper.BaseMapper;
+
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.mapper.BaseMapper;
+import org.beetl.sql.mapper.annotation.Sql;
+import org.beetl.sql.mapper.annotation.SqlResource;
 
 import com.ibeetl.admin.core.entity.CoreOrg;
 

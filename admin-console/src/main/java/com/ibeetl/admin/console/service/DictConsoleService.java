@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ibeetl.admin.console.web.query.CoreDictQuery;
 import org.apache.poi.ss.util.CellReference;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,8 +32,10 @@ public class DictConsoleService extends CoreBaseService<CoreDict> {
 
     @Autowired private DictConsoleDao dictDao;
 
-    public PageQuery<CoreDict>queryByCondition(PageQuery query){
-        PageQuery ret =  dictDao.queryByCondition(query);
+    public PageResult<CoreDict> queryByCondition(CoreDictQuery query){
+		PageRequest pageRequest = query.getPageRequest();
+		Map params = query.getPageParam();
+        PageResult<CoreDict> ret =  dictDao.queryByCondition(pageRequest,params);
         queryListAfter(ret.getList());
         return ret;
     }
@@ -43,9 +48,9 @@ public class DictConsoleService extends CoreBaseService<CoreDict> {
             throw new PlatformException("批量删除CoreDict失败", e);
         }
     }
-    public List<CoreDict> queryExcel(PageQuery<CoreUser> query) {
+    public List<CoreDict> queryExcel(PageRequest query) {
         //同查询，不需要额外数据
-        PageQuery ret =  dictDao.queryByCondition(query);
+        PageResult<CoreDict> ret =  dictDao.queryByCondition(query,null);
         queryListAfter(ret.getList());
         return ret.getList();
         

@@ -3,10 +3,11 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.SeqID;
+
 
 import com.ibeetl.admin.core.util.ValidateConfig;
+import org.beetl.sql.annotation.entity.AutoID;
+import org.beetl.sql.annotation.entity.SeqID;
 
 /*
 * 

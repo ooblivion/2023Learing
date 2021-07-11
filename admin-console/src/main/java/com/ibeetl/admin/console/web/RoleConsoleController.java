@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.beetl.sql.core.page.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -108,16 +109,15 @@ public class RoleConsoleController {
     /**
      * 列表页、 分页数据
      * 
-     * @param condtion
+     * @param condition
      * @return
      */
     @PostMapping(MODEL + "/list.json")
     @Function("role.query")
     @ResponseBody
-    public JsonResult<PageQuery> list(RoleQuery condtion) {
-        PageQuery page = condtion.getPageQuery();
-        roleConsoleService.queryByCondtion(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreRole>> list(RoleQuery condition) {
+		PageResult<CoreRole> pageResult =  roleConsoleService.queryByCondition(condition);
+        return JsonResult.success(pageResult);
     }
 
     @GetMapping(MODEL + "/all.json")
@@ -220,49 +220,19 @@ public class RoleConsoleController {
     /**
      * 查询角色下授权用户列表
      * 
-     * @param queryCondtion
+     * @param query
      *            查询条件
      * @return
      */
     @PostMapping(MODEL + "/user/list.json")
     @Function("role.user.query")
     @ResponseBody
-    public JsonResult<PageQuery<CoreUser>> userList(RoleUserQuery query) {
-        PageQuery page = query.getPageQuery();
-        PageQuery<CoreUser> pageQuery = roleConsoleService.queryRoleUser(page);
-        return JsonResult.success(page);
+    public JsonResult<PageResult<CoreUser>> userList(RoleUserQuery query) {
+		PageResult<CoreUser> pageQuery = roleConsoleService.queryRoleUser(query);
+        return JsonResult.success(pageQuery);
     }
 
-    // /**
-    // * 给角色添加用户
-    // * @param userRole 角色用户关系
-    // * @return
-    // */
-    // @PostMapping(MODEL + "/user/save.json")
-    // @Function("role.user.save")
-    // @ResponseBody
-    // public JsonResult saveRoleUser(CoreUserRole userRole) {
-    // userRole.setCreateTime(new Date());
-    // userRoleConsoleService.saveSysUserRole(userRole);
-    // platformService.clearFunctionCache();
-    // return JsonResult.success();
-    // }
-    //
-    //
-    // /**
-    // * 用户授权删除
-    // * @param ids 记录id
-    // * @return
-    // */
-    // @GetMapping(MODEL + "/user/delete.json")
-    // @Function("role.user.delete")
-    // @ResponseBody
-    // public Object deleteRoleUser(String ids) {
-    // List<Long> dels = ConvertUtil.str2longs(ids);
-    // userRoleConsoleService.deleteUserRoles(dels);
-    // platformService.clearFunctionCache();
-    // return JsonResult.success();
-    // }
+
 
     @PostMapping(MODEL + "/function/ids.json")
     @Function("role.function.query")

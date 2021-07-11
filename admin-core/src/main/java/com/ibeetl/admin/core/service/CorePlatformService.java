@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.engine.SQLPlaceholderST;
+import org.beetl.sql.core.engine.template.BeetlTemplateEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -111,8 +112,9 @@ public class CorePlatformService {
     public void init() {
         SQLPlaceholderST.textFunList.add("function");
         //sql语句里带有此函数来判断数据权限
-        sqlManager.getBeetl().getGroupTemplate().registerFunction("function", dataAccessFunction);
-        sqlManager.getBeetl().getGroupTemplate().registerFunction("nextDay", new NextDayFunction());
+		BeetlTemplateEngine beetlTemplateEngine = (BeetlTemplateEngine)sqlManager.getSqlTemplateEngine();
+		beetlTemplateEngine.getBeetl().getGroupTemplate().registerFunction("function", dataAccessFunction);
+		beetlTemplateEngine.getBeetl().getGroupTemplate().registerFunction("nextDay", new NextDayFunction());
     }
 
 

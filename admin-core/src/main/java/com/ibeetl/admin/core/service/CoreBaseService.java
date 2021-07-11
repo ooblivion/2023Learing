@@ -27,7 +27,7 @@ public class CoreBaseService<T> {
     @Autowired
     protected CoreDictService dictUtil;
     @Autowired
-	@Qualifier("baseDataSourceSqlManagerFactoryBean")
+	@Qualifier("coreSqlManager")
     protected SQLManager sqlManager;
     
     
@@ -61,7 +61,7 @@ public class CoreBaseService<T> {
      * @return
      */
     public boolean save(T model) {
-        return sqlManager.insert(model,true) > 0;
+        return sqlManager.insert(model) > 0;
     }
 
    
@@ -142,8 +142,6 @@ public class CoreBaseService<T> {
     		return sqlManager.updateById(model) > 0;
     }
 
-  
-
     /**
      * 获取当前注入泛型T的类型
      * @return 具体类型
@@ -152,7 +150,6 @@ public class CoreBaseService<T> {
     private Class<T> getCurrentEntityClassz() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
-
 
     public void queryListAfter(List list) {
         for (Object bean : list) {
