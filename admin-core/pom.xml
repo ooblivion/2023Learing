@@ -49,13 +49,13 @@
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl-framework-starter</artifactId>
-            <version>1.2.31.Beetl.RELEASE</version>
+            <version>1.2.32.Beetl.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>sql-springboot-starter</artifactId>
-            <version>3.6.1-RELEASE</version>
+            <version>3.6.2-RELEASE</version>
         </dependency>
 
 
