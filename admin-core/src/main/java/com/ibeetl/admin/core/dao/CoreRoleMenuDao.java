@@ -4,6 +4,7 @@ package com.ibeetl.admin.core.dao;
 import com.ibeetl.admin.core.entity.CoreRoleMenu;
 import org.beetl.sql.mapper.BaseMapper;
 import org.beetl.sql.mapper.annotation.SqlResource;
+import org.beetl.sql.mapper.annotation.Update;
 
 import java.util.List;
 
@@ -22,5 +23,6 @@ public interface CoreRoleMenuDao extends BaseMapper<CoreRoleMenu> {
      * 根据菜单id删除角色和菜单关系
      * @param ids
      */
+	@Update
     void deleteRoleMenu(List<Long> ids);
 }

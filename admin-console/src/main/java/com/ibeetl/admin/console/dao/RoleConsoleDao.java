@@ -12,6 +12,7 @@ import org.beetl.sql.core.page.PageResult;
 import org.beetl.sql.mapper.BaseMapper;
 import org.beetl.sql.mapper.annotation.Root;
 import org.beetl.sql.mapper.annotation.SqlResource;
+import org.beetl.sql.mapper.annotation.Update;
 
 @SqlResource("console.role")
 public interface RoleConsoleDao extends BaseMapper<CoreRole> {
@@ -26,10 +27,13 @@ public interface RoleConsoleDao extends BaseMapper<CoreRole> {
      * 批量删除角色
      * @param ids 角色id
      */
+    @Update
     void batchDelByIds(List<Long> ids);
-    
+	@Update
     void batchDeleteRoleFunction(List<Long> ids);
+	@Update
     void batchDeleteRoleMenu(List<Long> ids);
+	@Update
     void batchDeleteUserRole(List<Long> ids);
 
 

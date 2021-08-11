@@ -10,6 +10,7 @@ import org.beetl.sql.core.page.PageResult;
 import org.beetl.sql.mapper.BaseMapper;
 import org.beetl.sql.mapper.annotation.Root;
 import org.beetl.sql.mapper.annotation.SqlResource;
+import org.beetl.sql.mapper.annotation.Update;
 
 /**
  * CoreDict Dao
@@ -17,5 +18,6 @@ import org.beetl.sql.mapper.annotation.SqlResource;
 @SqlResource("console.dict")
 public interface DictConsoleDao extends BaseMapper<CoreDict> {
      PageResult<CoreDict> queryByCondition(PageRequest query, @Root Map params);
+	 @Update
      void batchDelCoreDictByIds( List<Long> ids);
 }

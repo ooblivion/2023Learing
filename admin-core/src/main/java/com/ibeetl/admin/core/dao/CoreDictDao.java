@@ -7,6 +7,7 @@ import org.beetl.sql.mapper.BaseMapper;
 import org.beetl.sql.mapper.annotation.SqlResource;
 
 import com.ibeetl.admin.core.entity.CoreDict;
+import org.beetl.sql.mapper.annotation.Update;
 
 /**
  * 字典DAO接口
@@ -37,5 +38,4 @@ public interface CoreDictDao extends BaseMapper<CoreDict> {
      */
     List<CoreDict> findChildByParent(Long id);
 
-    int bathDelByValue(List<String> values);
 }
