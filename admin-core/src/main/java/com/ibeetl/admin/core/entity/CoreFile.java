@@ -13,7 +13,7 @@ import org.beetl.sql.annotation.entity.SeqID;
 */
 public class CoreFile extends BaseEntity {
     @NotNull(message = "ID不能为空", groups = ValidateConfig.UPDATE.class)
-    @SeqID(name = ORACLE_FILE_SEQ_NAME)
+    //@SeqID(name = ORACLE_FILE_SEQ_NAME)
     @AutoID
     private Long id;
     // 文件名称

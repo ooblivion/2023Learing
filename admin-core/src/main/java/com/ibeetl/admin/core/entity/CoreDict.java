@@ -19,7 +19,7 @@ import org.beetl.sql.annotation.entity.SeqID;
 public class CoreDict extends BaseEntity {
 
 	@NotNull(message = "ID不能为空", groups = ValidateConfig.UPDATE.class)
-	@SeqID(name = ORACLE_CORE_SEQ_NAME)
+	//@SeqID(name = ORACLE_CORE_SEQ_NAME)
 	@AutoID
 	private Long id;
 	

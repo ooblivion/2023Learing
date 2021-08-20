@@ -10,6 +10,7 @@ import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.engine.SQLPlaceholderST;
 import org.beetl.sql.core.engine.template.BeetlTemplateEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -97,6 +98,7 @@ public class CorePlatformService {
     CoreFunctionDao sysFunctionDao;
 
     @Autowired
+    @Qualifier("coreSqlManager")
     SQLManager sqlManager;
 
     @Autowired

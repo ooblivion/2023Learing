@@ -19,6 +19,7 @@ import org.beetl.sql.core.SQLManager;
 import org.beetl.sql.core.meta.MetadataManager;
 import org.beetl.sql.core.meta.SchemaMetadataManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ibeetl.admin.core.entity.CoreFunction;
@@ -34,6 +35,7 @@ import com.ibeetl.admin.core.gen.model.Entity;
 @Service
 public class CoreCodeGenService {
 	@Autowired
+	@Qualifier("coreSqlManager")
 	SQLManager sqlManager;
 	@Autowired
 	CorePlatformService platformService;

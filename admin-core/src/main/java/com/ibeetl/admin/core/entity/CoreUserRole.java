@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class CoreUserRole extends BaseEntity {
 
 
-	@SeqID(name = "ORACLE_CORE_SEQ_NAME")
+	//@SeqID(name = "ORACLE_CORE_SEQ_NAME")
 	@AutoID
     private Long id;
     // 授权机构id

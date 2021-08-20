@@ -24,7 +24,7 @@ public class CoreMenu extends BaseEntity {
     public static final String TYPE_MENUITEM = "MENU_M";
 
 	@NotNull(message = "ID不能为空", groups = ValidateConfig.UPDATE.class)
-	@SeqID(name = ORACLE_CORE_SEQ_NAME)
+	//@SeqID(name = ORACLE_CORE_SEQ_NAME)
 	@AutoID
     protected Long id;
 

@@ -34,7 +34,7 @@ public class ${className} extends BaseEntity{
 		@}
 		@if(attr.isId) {
     \@NotNull(message = "ID不能为空", groups =ValidateConfig.UPDATE.class)
-    \@SeqID(name = ORACLE_CORE_SEQ_NAME)
+//\@SeqID(name = ORACLE_CORE_SEQ_NAME)
     \@AutoID	
 		@}
 		@if(isNotEmpty(attr.dictType)) {
