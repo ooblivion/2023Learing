@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-
+import org.beetl.sql.core.page.PageRequest;
+import org.beetl.sql.core.page.PageResult;
 
 
 
@@ -29,8 +30,16 @@ public class ${entity.name}Service extends CoreBaseService<${entity.name}>{
 
     \@Autowired private ${entity.name}Dao ${entity.code}Dao;
 
-    public PageQuery<${entity.name}>queryByCondition(PageQuery query){
-        PageQuery ret =  ${entity.code}Dao.queryByCondition(query);
+//    public PageQuery<${entity.name}>queryByCondition(PageQuery query){
+//        PageQuery ret =  ${entity.code}Dao.queryByCondition(query);
+//        queryListAfter(ret.getList());
+//        return ret;
+//    }
+
+    public PageResult<${entity.name}> queryByCondition(${entity.name}Query condition) {
+        PageRequest pageRequest = condition.getPageRequest();
+        Map params = condition.getPageParam();
+        PageResult ret = ${entity.code}Dao.queryByCondition(pageRequest, params);
         queryListAfter(ret.getList());
         return ret;
     }

@@ -96,12 +96,17 @@ public class ${entity.name}Controller{
     \@PostMapping(MODEL + "/list.json")
     \@Function("${basicfunctionCode}.query")
     \@ResponseBody
-    public JsonResult<PageQuery> list(${entity.name}Query condtion)
+    public JsonResult<PageResult<${entity.name}>> list(${entity.name}Query condition)
+    {
+        PageResult<${entity.name}> pageResult = ${service}.queryByCondition(condition);
+        return JsonResult.success(pageResult);
+    }
+/*    public JsonResult<PageQuery> list(${entity.name}Query condtion)
     {
         PageQuery page = condtion.getPageQuery();
         ${service}.queryByCondition(page);
         return JsonResult.success(page);
-    }
+    }*/
 
     \@PostMapping(MODEL + "/add.json")
     \@Function("${basicfunctionCode}.add")
@@ -151,20 +156,26 @@ public class ${entity.name}Controller{
     \@PostMapping(MODEL + "/excel/export.json")
     \@Function("${basicfunctionCode}.export")
     \@ResponseBody
-    public JsonResult<String> export(HttpServletResponse response,${entity.name}Query condtion) {
+    public JsonResult<String> export(HttpServletResponse response,${entity.name}Query condition) {
         /**
          * 1)需要用你自己编写一个的excel模板
          * 2)通常excel导出需要关联更多数据，因此${service}.queryByCondition方法经常不符合需求，需要重写一个为模板导出的查询
          * 3)参考ConsoleDictController来实现模板导入导出
          */
         String excelTemplate ="excelTemplates/${target.urlBase}/${entity.code}/你的excel模板文件名字.xls";
-        PageQuery<${entity.name}> page = condtion.getPageQuery();
+//        PageQuery<${entity.name}> page = condtion.getPageQuery();
+        PageRequest<${entity.name> page=condition.getPageRequest();
+        condition.setPage(1);
+        condition.setLimit(Integer.MAX_VALUE);
         //取出全部符合条件的
-        page.setPageSize(Integer.MAX_VALUE);
-        page.setPageNumber(1);
-        page.setTotalRow(Integer.MAX_VALUE);
+//        page.setPageSize(Integer.MAX_VALUE);
+//        page.setPageNumber(1);
+//        page.setTotalRow(Integer.MAX_VALUE);
         //本次导出需要的数据
-        List<${entity.name}> list =${service}.queryByCondition(page).getList();
+        PageResult<${entity.name}> pageResult = ${service}.queryByCondition(condition);
+        //本次导出需要的数据
+        List<${entity.name}> list =pageResult.getList();
+//        List<${entity.name}> list =${service}.queryByCondition(page).getList();
         try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelTemplate)) {
             if(is==null) {
                 throw new PlatformException("模板资源不存在："+excelTemplate);

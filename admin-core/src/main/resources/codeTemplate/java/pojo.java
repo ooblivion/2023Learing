@@ -6,8 +6,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
-import org.beetl.sql.core.annotatoin.AutoID;
-import org.beetl.sql.core.annotatoin.SeqID;
+
+import com.ibeetl.admin.core.entity.BaseEntity;
+import com.ibeetl.admin.core.util.ValidateConfig;
+import org.beetl.sql.annotation.entity.AutoID;
+import org.beetl.sql.annotation.entity.SeqID;
+import org.beetl.sql.annotation.entity.InsertIgnore;
+import org.beetl.sql.annotation.entity.UpdateIgnore;
 
 import com.ibeetl.admin.core.util.ValidateConfig;
 
@@ -17,9 +22,7 @@ import java.math.*;
 import com.ibeetl.admin.core.annotation.Dict;
 import com.ibeetl.admin.core.entity.BaseEntity;
 
-import org.beetl.sql.core.annotatoin.InsertIgnore;
-import org.beetl.sql.core.annotatoin.Version;
-import org.beetl.sql.core.annotatoin.LogicDelete;
+
 
 
 /* 
