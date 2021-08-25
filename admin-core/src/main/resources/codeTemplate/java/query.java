@@ -17,7 +17,9 @@ public class ${entity.name}Query extends PageParam {
         @} else if(attr.dateRange) {
     \@Query(name = "${attr.displayName}", display = true,type=Query.TYPE_DATE_BETWEEN)
     private String ${attr.name};
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}Start;
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}End;
         @} else if(attr.dateTimeRange) {
     \@Query(name = "${attr.displayName}", display = true,type=Query.TYPE_DATETIME_BETWEEN)
