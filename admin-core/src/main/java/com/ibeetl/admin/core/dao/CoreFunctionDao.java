@@ -1,9 +1,8 @@
 package com.ibeetl.admin.core.dao;
 
+import com.ibeetl.admin.core.entity.CoreFunction;
 import org.beetl.sql.mapper.BaseMapper;
 import org.beetl.sql.mapper.annotation.Sql;
-
-import com.ibeetl.admin.core.entity.CoreFunction;
 import org.beetl.sql.mapper.annotation.SqlResource;
 
 @SqlResource("core.coreFunction")

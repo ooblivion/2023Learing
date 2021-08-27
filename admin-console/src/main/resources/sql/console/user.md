@@ -37,6 +37,9 @@ queryByCondition
         and  u.create_time< #nextDay(createDateMax)#
     @}
     
+    @pageIgnoreTag(){
+        order by id
+    @}
     
 
 batchDelUserByIds
@@ -67,3 +70,5 @@ queryUserRole
     @if(isNotEmpty(roleId)){
     	and role.id=#roleId#
     @}
+    
+

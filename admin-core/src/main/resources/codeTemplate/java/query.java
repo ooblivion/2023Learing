@@ -17,12 +17,16 @@ public class ${entity.name}Query extends PageParam {
         @} else if(attr.dateRange) {
     \@Query(name = "${attr.displayName}", display = true,type=Query.TYPE_DATE_BETWEEN)
     private String ${attr.name};
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}Start;
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}End;
         @} else if(attr.dateTimeRange) {
     \@Query(name = "${attr.displayName}", display = true,type=Query.TYPE_DATETIME_BETWEEN)
     private String ${attr.name};
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}Start;
+    \@Query(name = "${attr.displayName}", display = false)
     private Date ${strutil.replace (attr.name,"Range","")}End;
         @} else {
     \@Query(name = "${attr.displayName}", display = true)
@@ -31,6 +35,7 @@ public class ${entity.name}Query extends PageParam {
     @}
     @for(attr in attrs) {
         @if(attr.dateRange) {
+
     public String get${upperFirst(attr.name)}(){
         return  ${attr.name};
     }

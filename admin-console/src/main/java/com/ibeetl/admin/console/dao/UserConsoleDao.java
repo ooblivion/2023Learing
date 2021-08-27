@@ -1,7 +1,6 @@
 package com.ibeetl.admin.console.dao;
 
 
-
 import com.ibeetl.admin.core.entity.CoreUser;
 import com.ibeetl.admin.core.entity.CoreUserRole;
 import com.ibeetl.admin.core.util.enums.GeneralStateEnum;
@@ -19,12 +18,14 @@ import java.util.Map;
 public interface UserConsoleDao extends BaseMapper<CoreUser> {
 
     PageResult<CoreUser> queryByCondition(PageRequest<CoreUser> query, @Root Map params);
-	@Update
-    void batchDelUserByIds( List<Long> ids);
-	@Update
+
+    @Update
+    void batchDelUserByIds(List<Long> ids);
+
+    @Update
     void batchUpdateUserState(List<Long> ids, GeneralStateEnum state);
-    
-    List<CoreUserRole> queryUserRole( Long id,Long orgId,Long roleId);
+
+    List<CoreUserRole> queryUserRole(Long id, Long orgId, Long roleId);
 
 }
 

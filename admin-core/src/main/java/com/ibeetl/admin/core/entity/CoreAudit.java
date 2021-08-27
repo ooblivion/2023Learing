@@ -14,7 +14,7 @@ import org.beetl.sql.annotation.entity.SeqID;
 
 public class CoreAudit extends BaseEntity  {
 	
-	@SeqID(name = "ORACLE_AUDIT_SEQ_NAME")
+	//@SeqID(name = "ORACLE_AUDIT_SEQ_NAME")
 	@AutoID
 	@NotNull(message = "ID不能为空", groups = ValidateConfig.UPDATE.class)
 	protected Long id;
