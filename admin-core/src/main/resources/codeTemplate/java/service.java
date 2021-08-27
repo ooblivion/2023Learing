@@ -3,7 +3,7 @@ package ${package};
 
 import ${basePackage}.dao.${entity.name}Dao;
 import ${basePackage}.entity.${entity.name};
-
+import ${basePackage}.web.query.${entity.name}Query;
 
 
 import com.ibeetl.admin.core.service.CoreBaseService;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Map;
 import org.beetl.sql.core.page.PageRequest;
 import org.beetl.sql.core.page.PageResult;
 

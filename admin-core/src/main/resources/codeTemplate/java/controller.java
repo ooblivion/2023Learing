@@ -164,7 +164,7 @@ public class ${entity.name}Controller{
          */
         String excelTemplate ="excelTemplates/${target.urlBase}/${entity.code}/你的excel模板文件名字.xls";
 //        PageQuery<${entity.name}> page = condtion.getPageQuery();
-        PageRequest<${entity.name> page=condition.getPageRequest();
+        //PageRequest<${entity.name}> page=condition.getPageRequest();
         condition.setPage(1);
         condition.setLimit(Integer.MAX_VALUE);
         //取出全部符合条件的
