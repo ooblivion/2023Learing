@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl-framework-starter</artifactId>
-            <version>1.2.32.Beetl.RELEASE</version>
+            <version>1.2.39.Beetl.RELEASE</version>
         </dependency>
 
         <dependency>
